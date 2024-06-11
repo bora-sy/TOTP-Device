@@ -30,25 +30,5 @@ void setup() {
 }
 
 void loop() {
-
-  if(digitalRead(BTN1) == LOW)
-  {
-            Ds1302::DateTime dt = {
-            .year = 24,
-            .month = 6,
-            .day = 10,
-            .hour = 23,
-            .minute = 0,
-            .second = 0,
-            .dow = 1
-        };
-
-        rtc.setDateTime(&dt);
-  }
-
-    Ds1302::DateTime now;
-    rtc.getDateTime(&now);
-
-    LCD::PrintCenter(String(now.hour) + ":" + String(now.minute) + ":" + String(now.second),true);
-    delay(1000);
+  
 }
