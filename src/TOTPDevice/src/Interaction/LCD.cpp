@@ -7,7 +7,7 @@ namespace LCD
     const int LCD_COLS = 16;
     const int LCD_ROWS = 2;
 
-    LiquidCrystal_I2C display(0x27, 16, 2);
+    LiquidCrystal_I2C display(0x27, LCD_COLS, LCD_ROWS);
 
     bool Initialize()
     {
@@ -15,7 +15,7 @@ namespace LCD
         bool suc = display.init();
         display.backlight();
         display.clear();
-
+        
         return suc;
     }
 
@@ -37,28 +37,39 @@ namespace LCD
         display.Refresh();
     }
 
-    void PrintCenterRow(String str, uint8_t row = 0, bool clear = true)
+    void ToggleBlink(bool state)
+    {
+        if(state) display.blink();
+        else display.noBlink();
+    }
+
+    void SetCursor(uint8_t col, uint8_t row)
+    {
+        display.setCursor(col, row);
+    }
+
+    void Print(String str, uint8_t col = 0, uint8_t row = 0, bool clear = true)
     {
         if (clear) ClearRow(row);
 
+        display.setCursor(col, row);
+        display.print(str);
+    }
+
+    void PrintCenterRow(String str, uint8_t row = 0, bool clear = true)
+    {
         String string(str);
         string.trim();
         if(string.length() > LCD_COLS)
         {
-            display.setCursor(0, row);
-            delay(5);
-            display.print(string);
-            delay(50);
+            Print(string, 0, row, clear);
         }
 
         uint8_t pos = (LCD_COLS - string.length()) / 2;
 
         if(string.length() > LCD_COLS) string = string.substring(0, LCD_COLS + 1);
 
-        display.setCursor(pos, row);
-            delay(5);
-        display.print(string);
-            delay(50);
+        Print(string, pos, row, clear);
     }
 
     void PrintCenterRow(char *str, uint8_t row = 0, bool clear = true)

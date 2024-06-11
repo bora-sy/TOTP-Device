@@ -4,6 +4,8 @@
 
 namespace LCD
 {
+    extern const int LCD_COLS;
+    extern const int LCD_ROWS;
 
     bool Initialize();
 
@@ -15,6 +17,11 @@ namespace LCD
     
     void Refresh();
 
+    void ToggleBlink(bool state);
+
+    void SetCursor(uint8_t col, uint8_t row);
+
+    void Print(String str, uint8_t col = 0, uint8_t row = 0, bool clear = true);
     void PrintCenterRow(String str, uint8_t row = 0, bool clear = true);
     void PrintCenterRow(char* str, uint8_t row = 0, bool clear = true);
     void PrintCenterRow(const char* str, uint8_t row = 0, bool clear = true);
