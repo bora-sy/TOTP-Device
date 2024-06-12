@@ -22,9 +22,11 @@ namespace LCD
     void SetCursor(uint8_t col, uint8_t row);
 
     void Print(String str, uint8_t col = 0, uint8_t row = 0, bool clear = true);
-    void PrintCenterRow(String str, uint8_t row = 0, bool clear = true);
-    void PrintCenterRow(char* str, uint8_t row = 0, bool clear = true);
-    void PrintCenterRow(const char* str, uint8_t row = 0, bool clear = true);
+    void Print(const char* str, uint8_t col = 0, uint8_t row = 0, bool clear = true);
+    
+    void PrintCenterRow(String str, uint8_t row = 0, bool clear = true, uint8_t offset = 0);
+    void PrintCenterRow(char* str, uint8_t row = 0, bool clear = true, uint8_t offset = 0);
+    void PrintCenterRow(const char* str, uint8_t row = 0, bool clear = true, uint8_t offset = 0);
 
     void PrintCenter(String string, bool clear = true);
     void PrintCenter(char* str, bool clear = true);

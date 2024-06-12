@@ -8,26 +8,50 @@ enum BtnInput
     Down
 };
 
-struct BaseLCDMMenuItem
+struct BaseLCDMenuItem
 {
-    void (*onLoad)(void*, uint8_t);
-    void (*onInput)(void*, uint8_t);
-    void (*periodic)(void*, uint8_t);
-};
-
-
-struct LCDMenuOkCancelItem : public BaseLCDMMenuItem
-{
+    public:
     char* title;
-    char* content;
+    void (*onLoad)();
+    void (*onClose)();
 
-    void (*action)(void*, uint8_t);
-    void* callbackParam;
+    void (*onInput)(BtnInput input);
+
+    void (*periodic)();
+
 };
+
+
+struct LCDMenuOkCancelItem : public BaseLCDMenuItem
+{
+    char* content;
+    void (*okAction)();
+};
+
 
 
 
 class LCDMenu
 {
+private:
+BaseLCDMenuItem* _items;
+uint8_t _itemCount;
 
+int _selectedItem = 0;
+int _loadedItem = -1;
+
+void UpdateMenuScreen();
+
+public:
+    LCDMenu(BaseLCDMenuItem* items, uint8_t itemCount);
+    LCDMenu();
+    ~LCDMenu();
+
+    void Open();
+    void Close();
+
+    void Periodic();
+
+    void Input(BtnInput input);
 };
+

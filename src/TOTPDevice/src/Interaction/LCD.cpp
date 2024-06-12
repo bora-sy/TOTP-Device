@@ -48,7 +48,7 @@ namespace LCD
         display.setCursor(col, row);
     }
 
-    void Print(String str, uint8_t col = 0, uint8_t row = 0, bool clear = true)
+    void Print(const char* str, uint8_t col = 0, uint8_t row = 0, bool clear = true)
     {
         if (clear) ClearRow(row);
 
@@ -56,30 +56,39 @@ namespace LCD
         display.print(str);
     }
 
-    void PrintCenterRow(String str, uint8_t row = 0, bool clear = true)
+    void Print(String str, uint8_t col = 0, uint8_t row = 0, bool clear = true)
     {
+        Print(str.c_str(), col, row, clear);
+    }
+
+
+
+    void PrintCenterRow(String str, uint8_t row = 0, bool clear = true, uint8_t offset = 0)
+    {
+        offset = offset < 0 ? 0 : offset;
+
         String string(str);
         string.trim();
-        if(string.length() > LCD_COLS)
+        if(string.length() > LCD_COLS - offset)
         {
-            Print(string, 0, row, clear);
+            Print(string, offset, row, clear);
         }
 
-        uint8_t pos = (LCD_COLS - string.length()) / 2;
+        uint8_t pos = (LCD_COLS - offset - string.length()) / 2;
 
-        if(string.length() > LCD_COLS) string = string.substring(0, LCD_COLS + 1);
+        if(string.length() > LCD_COLS - offset) string = string.substring(0, LCD_COLS + 1 - offset);
 
         Print(string, pos, row, clear);
     }
 
-    void PrintCenterRow(char *str, uint8_t row = 0, bool clear = true)
+    void PrintCenterRow(char *str, uint8_t row = 0, bool clear = true, uint8_t offset = 0)
     {
         String string(str);
 
         PrintCenterRow(string, row, clear);
     }
 
-    void PrintCenterRow(const char *str, uint8_t row = 0, bool clear = true)
+    void PrintCenterRow(const char *str, uint8_t row = 0, bool clear = true, uint8_t offset = 0)
     {
         PrintCenterRow((char *)str, row, clear);
     }
