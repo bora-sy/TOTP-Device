@@ -32,4 +32,8 @@ namespace LCD
     void PrintCenter(char* str, bool clear = true);
     void PrintCenter(const char* str, bool clear = true);
 
+
+    
+    void LCDCharTest(uint8_t triggerButtonPin);
+
 }
