@@ -3,13 +3,7 @@
 #include <PagedView.h>
 #include "Interaction/Pages/OTPPage.h"
 
-#define BTN1 2
-#define BTN2 14
-#define BTN3 3
 
-#define PIN_ENA 15
-#define PIN_CLK 12
-#define PIN_DAT 13
 
 Ds1302 rtc(PIN_ENA, PIN_CLK, PIN_DAT);
 
