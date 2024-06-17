@@ -5,9 +5,10 @@
 
 enum BtnInput
 {
-    Up,
-    Enter,
-    Down
+    NONE = 0,  // 000
+    Up = 1,    // 001
+    Enter = 2, // 010
+    Down = 4   // 100
 };
 
 class Page;
