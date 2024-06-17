@@ -1,10 +1,7 @@
 #include <Arduino.h>
-
-#include "Interaction/LCD.h"
-#include "Interaction/LCDMenu/LCDMenu.h"
-#include "Interaction/LCDMenu/LCDMenuItems.h"
 #include "Ds1302.h"
-
+#include <PagedView.h>
+#include "Interaction/Pages/OTPPage.h"
 
 #define BTN1 2
 #define BTN2 14
@@ -16,50 +13,29 @@
 
 Ds1302 rtc(PIN_ENA, PIN_CLK, PIN_DAT);
 
-LCDMenu menu;
-
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(921600);
 
   pinMode(BTN1, INPUT_PULLUP);
   pinMode(BTN2, INPUT_PULLUP);
   pinMode(BTN3, INPUT_PULLUP);
 
-  LCD::Initialize();
-  LCD::PrintCenterRow("Hello");
+  PagedView::Begin();
 
 
-  rtc.init();
-  Serial.printf("Halted: %d\n", rtc.isHalted());
+  OTPPage* p = new OTPPage();
 
-
-  LCDMenuItem* items = new LCDMenuItem[10];
-
-  for (size_t i = 0; i < 10; i++)
-  {
-    items[i] = *CreateOkCancelMenuItem("Title " + String(i), "Content " + String(i), [](bool res){
-      Serial.printf("Closed %d\n", res);
-    });
-
-    //items[i].content = "Content " + String(i);
-  }
-
-
-  menu = LCDMenu(items, 10);
-  menu.Open();
-
-
-  
+  p->Show();
 }
 
 void loop() {
-  if (!digitalRead(BTN1)) menu.Input(BtnInput::Up);
-  if (!digitalRead(BTN2)) menu.Input(BtnInput::Enter);
-  if (!digitalRead(BTN3)) menu.Input(BtnInput::Down);
+  if (!digitalRead(BTN1)) PagedView::HandleInput(BtnInput::Up);
+  if (!digitalRead(BTN2)) PagedView::HandleInput(BtnInput::Enter);
+  if (!digitalRead(BTN3)) PagedView::HandleInput(BtnInput::Down);
   
-  menu.Periodic();
+  PagedView::Periodic();
   
   delay(100);
 
