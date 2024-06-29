@@ -20,7 +20,7 @@ public:
     RectLabel(Point _p, Size _s, String _text, uint8_t _textSize, Color _textColor, Color _rectColor, RelativePoint _anchor = RelativePoint(0,0));
 
 
-    void UpdateText(String _text);
+    void UpdateText(String _text, bool draw = true);
 
-    void UpdateInverted(bool _inverted);
+    void UpdateInverted(bool _inverted, bool draw = true);
 };

@@ -9,9 +9,9 @@ namespace ButtonHandler
 {
     void Initialize();
 
-    bool IsButtonPressed(BtnInput btn);
+    bool IsButtonPressed(BtnKey btn);
 
-    BtnInput GetPressedButtons();
+    BtnKey GetPressedButtons();
 
     BtnInput GetInput();
 }

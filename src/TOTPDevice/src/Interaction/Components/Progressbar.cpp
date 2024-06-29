@@ -25,10 +25,12 @@ Progressbar::Progressbar(RelativePoint _rp, RelativeSize _size, Color _color, ui
     this->anchor = _anchor;
 }
 
-void Progressbar::UpdateValue(uint16_t _value)
+void Progressbar::UpdateValue(uint16_t _value, bool draw)
 {
     _value = _value > maxValue ? maxValue : _value;
 
     this->value = _value;
+    
+    if(draw)
     this->parentPage->DrawIfShown();
 }

@@ -3,13 +3,30 @@
 #include <Arduino.h>
 #include "Display.h"
 
-enum BtnInput
+
+enum BtnKey : int
 {
     NONE = 0,  // 000
     Up = 1,    // 001
     Enter = 2, // 010
     Down = 4   // 100
 };
+
+enum BtnInputMode
+{
+    Click,
+    LongClick
+};
+
+struct BtnInput
+{
+    BtnKey key;
+    BtnInputMode mode;
+
+    BtnInput(BtnKey key, BtnInputMode mode);
+};
+
+
 
 class Page;
 
@@ -42,7 +59,6 @@ class Page
 
 public:
     void Show();
-    void ShowDialog();
     void Close();
     bool IsShown();
 

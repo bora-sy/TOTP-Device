@@ -34,22 +34,27 @@ Label::Label(RelativePoint _rp, String _text, uint8_t _textSize, Color _color, R
     this->color = _color;
 }
 
-void Label::UpdateText(String _text)
+void Label::UpdateText(String _text, bool draw)
 {
     Serial.printf("Updating label (parent: %d)\n", (int)this->parentPage);
     this->text = _text;
+    
+    if(draw)
     this->parentPage->DrawIfShown();
-    Serial.println("Updated label");
 }
 
-void Label::UpdateColor(Color _color)
+void Label::UpdateColor(Color _color, bool draw)
 {
     this->color = _color;
+    
+    if(draw)
     this->parentPage->DrawIfShown();
 }
 
-void Label::UpdateTextSize(uint8_t _textSize)
+void Label::UpdateTextSize(uint8_t _textSize, bool draw)
 {
     this->textSize = _textSize;
+    
+    if(draw)
     this->parentPage->DrawIfShown();
 }

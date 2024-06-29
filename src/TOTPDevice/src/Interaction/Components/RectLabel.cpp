@@ -41,16 +41,18 @@ RectLabel::RectLabel(RelativePoint _rp, RelativeSize _rs, String _text, uint8_t 
 }
 
 
-void RectLabel::UpdateText(String _text)
+void RectLabel::UpdateText(String _text, bool draw)
 {
     this->text = _text;
 
+    if(draw)
     this->parentPage->DrawIfShown();
 }
 
-void RectLabel::UpdateInverted(bool _inverted)
+void RectLabel::UpdateInverted(bool _inverted, bool draw)
 {
     this->colorsInverted = _inverted;
 
+    if(draw)
     this->parentPage->DrawIfShown();
 }
