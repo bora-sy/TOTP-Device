@@ -16,7 +16,7 @@ public:
     Label(RelativePoint _rp, String _text, uint8_t _textSize, Color _color, RelativePoint _anchor = RelativePoint(0,0));
 
 
-    void UpdateText(String _text);
-    void UpdateColor(Color _color);
-    void UpdateTextSize(uint8_t _textSize);
+    void UpdateText(String _text, bool draw = true);
+    void UpdateColor(Color _color, bool draw = true);
+    void UpdateTextSize(uint8_t _textSize, bool draw = true);
 };
