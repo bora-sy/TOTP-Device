@@ -4,7 +4,7 @@
 
 namespace PagedView
 {
-  
+
   Page *currentPage = nullptr;
 
   bool Begin()
@@ -26,21 +26,21 @@ namespace PagedView
 
   void SwitchToPage(Page *page)
   {
-    
-    
-    if(currentPage == page) return;
-    
-    if(currentPage != nullptr)
-    currentPage->OnExit();
 
-      if (page == nullptr) currentPage = nullptr;
-      else
-      {
-        page->OnLoad();
-        currentPage = page;
-        page->DrawIfShown();
-      }
-    
+    if (currentPage == page)
+      return;
+
+    if (currentPage != nullptr)
+      currentPage->OnExit();
+
+    if (page == nullptr)
+      currentPage = nullptr;
+    else
+    {
+      page->OnLoad();
+      currentPage = page;
+      page->DrawIfShown();
+    }
   }
 
   Page *GetCurrentPage()
@@ -84,8 +84,8 @@ void Page::DrawIfShown()
   {
     PageComponent *comp = this->components[i];
 
-    if(comp->IsVisible())
-    comp->Draw();
+    if (comp->IsVisible())
+      comp->Draw();
   }
 
   Display::Update();
@@ -110,8 +110,16 @@ bool PageComponent::IsVisible()
   return this->visible;
 }
 
-
-void PageComponent::SetParentPage(Page* _page)
+void PageComponent::SetParentPage(Page *_page)
 {
-  if(this->parentPage == nullptr) this->parentPage = _page;
+  if (this->parentPage == nullptr)
+    this->parentPage = _page;
+}
+
+// --- BTNINPUT ---
+
+BtnInput::BtnInput(BtnKey key, BtnInputMode mode)
+{
+  this->key = key;
+  this->mode = mode;
 }
