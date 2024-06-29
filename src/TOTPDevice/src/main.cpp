@@ -1,8 +1,6 @@
 #include <Arduino.h>
-#include <PagedView.h>
-#include "Interaction/Pages/MenuPage.h"
 #include "Interaction/ButtonHandler.h"
-
+#include "Pages.h"
 
 
 
@@ -12,13 +10,13 @@ void setup() {
 
   ButtonHandler::Initialize();
   PagedView::Begin();
-  MenuPage* p = new MenuPage();
+  Pages::Initialize();
 
-  p->Show();
+  Pages::otpMenu->Show();
 }
 
 void loop() {
   BtnInput inp = ButtonHandler::GetInput();
-  if(inp != BtnInput::NONE) PagedView::HandleInput(inp);
+  if(inp.key != BtnKey::NONE) PagedView::HandleInput(inp);
   PagedView::Periodic();
 }
