@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "Interaction/ButtonHandler.h"
 #include "Pages.h"
-
+#include "TOTP/TOTP.h"
 
 
 
@@ -16,6 +16,7 @@ void setup() {
 }
 
 void loop() {
+  return;
   BtnInput inp = ButtonHandler::GetInput();
   if(inp.key != BtnKey::NONE) PagedView::HandleInput(inp);
   PagedView::Periodic();

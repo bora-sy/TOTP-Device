@@ -3,5 +3,5 @@
 
 namespace DateTimeProvider
 {
-    ulong GetUnixTime();
+    int64_t GetUnixTime();
 }
