@@ -1,5 +1,4 @@
-#include "Interaction/Pages/OTPPage.h"
-
+#include "Pages.h"
 
 
 
@@ -18,7 +17,7 @@ void OTPPage::OnInput(BtnInput input)
 {
     //Serial.printf("OTPPage Input %d\n", input);
 
-    if(input == BtnInput::Enter) this->Close();
+    if(input.key == BtnKey::Enter) Pages::otpMenu->Show();
     //else this->label.UpdateText(String(this->c++));
 }
 
@@ -32,7 +31,7 @@ void OTPPage::Periodic()
 
 OTPPage::OTPPage()
 {
-    this->labelOTPTitle = Label(RelativePoint(0.5,0), "Discord", 2, Color::White, RelativePoint(0.5, 0));
+    this->labelOTPTitle = Label(RelativePoint(0.5,0), "Title", 2, Color::White, RelativePoint(0.5, 0));
     this->labelOTP = Label(RelativePoint(0.5,0.8), "123 456", 3, Color::White, RelativePoint(0.5, 1));
     this->pbar = Progressbar(RelativePoint(0, 0.95), RelativeSize(1, 0.05), Color::White, 128, 128);
     
