@@ -2,7 +2,7 @@
 
 void BaseMenuPage::OnLoad()
 {
-    
+    if(itemCount > 0 && selected == 0) this->Select(0);
 }
 
 void BaseMenuPage::OnExit()
