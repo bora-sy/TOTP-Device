@@ -15,17 +15,17 @@ namespace ButtonHandler
         pinMode(PIN_BTN3, INPUT_PULLUP);
     }
 
-    uint8_t GetPinByButton(BtnInput btn)
+    uint8_t GetPinByButton(BtnKey btn)
     {
         switch (btn)
         {
-        case BtnInput::Up:
+        case BtnKey::Up:
             return PIN_BTN1;
 
-        case BtnInput::Enter:
+        case BtnKey::Enter:
             return PIN_BTN2;
 
-        case BtnInput::Down:
+        case BtnKey::Down:
             return PIN_BTN3;
 
         default:
@@ -33,30 +33,30 @@ namespace ButtonHandler
         }
     }
 
-    BtnInput GetButtonByPin(uint8_t pin)
+    BtnKey GetButtonByPin(uint8_t pin)
     {
         switch (pin)
         {
         case PIN_BTN1:
-            return BtnInput::Up;
+            return BtnKey::Up;
         case PIN_BTN2:
-            return BtnInput::Enter;
+            return BtnKey::Enter;
         case PIN_BTN3:
-            return BtnInput::Down;
+            return BtnKey::Down;
         default:
-            return BtnInput::NONE;
+            return BtnKey::NONE;
         }
     }
 
-    int8_t GetButtonIndex(BtnInput btn)
+    int8_t GetButtonIndex(BtnKey btn)
     {
         switch(btn)
         {
-            case BtnInput::Up:
+            case BtnKey::Up:
                 return 0;
-            case BtnInput::Enter:
+            case BtnKey::Enter:
                 return 1;
-            case BtnInput::Down:
+            case BtnKey::Down:
                 return 2;
             default:
                 return -1;
@@ -64,24 +64,24 @@ namespace ButtonHandler
     }
 
     
-    bool IsButtonPressed(BtnInput btn)
+    bool IsButtonPressed(BtnKey btn)
     {
         return digitalRead(GetPinByButton(btn)) == LOW;
     }
 
-    BtnInput GetPressedButtons()
+    BtnKey GetPressedButtons()
     {
-        BtnInput input = BtnInput::NONE;
+        BtnKey input = BtnKey::NONE;
 
-        if(IsButtonPressed(BtnInput::Up)) input = (BtnInput)((int)input | (int)BtnInput::Up);
-        if(IsButtonPressed(BtnInput::Enter)) input = (BtnInput)((int)input | (int)BtnInput::Enter);
-        if(IsButtonPressed(BtnInput::Down)) input = (BtnInput)((int)input | (int)BtnInput::Down);
+        if(IsButtonPressed(BtnKey::Up)) input = (BtnKey)((int)input | (int)BtnKey::Up);
+        if(IsButtonPressed(BtnKey::Enter)) input = (BtnKey)((int)input | (int)BtnKey::Enter);
+        if(IsButtonPressed(BtnKey::Down)) input = (BtnKey)((int)input | (int)BtnKey::Down);
 
         return input;
     }
 
 
-    bool CheckSingleButton(BtnInput btn)
+    bool CheckSingleButton(BtnKey btn)
     {
         bool state = IsButtonPressed(btn);
 
@@ -108,10 +108,11 @@ namespace ButtonHandler
 
     BtnInput GetInput()
     {
-        if(CheckSingleButton(BtnInput::Up)) return BtnInput::Up;
-        if(CheckSingleButton(BtnInput::Enter)) return BtnInput::Enter;
-        if(CheckSingleButton(BtnInput::Down)) return BtnInput::Down;
+        // TODO: Actually decide whether the input mode is click or long click
+        if(CheckSingleButton(BtnKey::Up)) return BtnInput(BtnKey::Up, BtnInputMode::Click);
+        if(CheckSingleButton(BtnKey::Enter)) return BtnInput(BtnKey::Enter, BtnInputMode::Click);
+        if(CheckSingleButton(BtnKey::Down)) return BtnInput(BtnKey::Down, BtnInputMode::Click);
 
-        return BtnInput::NONE;
+        return BtnInput(BtnKey::NONE, BtnInputMode::Click);
     }
 }
